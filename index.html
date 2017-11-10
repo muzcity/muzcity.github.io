@@ -61,7 +61,7 @@
 		
   
     <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2017/11/10/po-print-in-closure-md/">po_print_in_closure.md</a>
+      <a class="article-title" href="/2017/11/10/po-print-in-closure-md/">클로저 내에서 내 객체(self) 접근하는 방법</a>
     </h1>
   
 
@@ -87,7 +87,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123; [weak weakSelf = self] _ in </div><div class="line"></div><div class="line">	guard let weakSelf = weakSelf else &#123;</div><div class="line">		return</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	// 브레이크를 걸고 콘솔에서 po weakSelf.variableName로 접근시</div><div class="line">	// 옵셔널한 값으로 찍히는걸 볼수 있다.</div><div class="line">	// 강제 언래핑을 한다면 해당하는 값을 볼수가 있다.</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>아래는 실 사용시에 나오는 값들이다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">rx / subscribe 내에서 브레이크를 걸고 콘솔로 찍은 값들이다.</div><div class="line"></div><div class="line">(lldb) po weakSelf.view</div><div class="line">▿ Optional&lt;UIView&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.view!</div><div class="line">&lt;UIView: 0x7fd008d61740; frame = (0 0; 375 812); autoresize = W+H; layer = &lt;CALayer: 0x6040006219e0&gt;&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.idTextField</div><div class="line">▿ Optional&lt;UITextField&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.idTextField!</div><div class="line">&lt;UITextField: 0x7fd00a0b0000; frame = (10 74; 275 30); text = &apos;&apos;; opaque = NO; autoresize = RM+BM; gestureRecognizers = &lt;NSArray: 0x60400045a040&gt;; layer = &lt;CALayer: 0x600000634c80&gt;&gt;</div></pre></td></tr></table></figure>
-<p>이상의 나름 엄청난 꿀팁이라 생각해서… 잘쓰지않는 블로그를 적었다.</p>
+<p>이상의 나름 꿀팁이라 생각해서… 잘쓰지않는 블로그를 적었다.</p>
 
     
 	</div>

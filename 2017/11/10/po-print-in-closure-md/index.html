@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>po_print_in_closure.md | 아이폰 개발</title>
+  <title>클로저 내에서 내 객체(self) 접근하는 방법 | 아이폰 개발</title>
   <meta name="viewport" content="width=device-width">
   <meta name="description" content="클로저 내에서 self 를 접근하는 방법.기존에 계속 있던 문제로 이번에 RxSwift를 공부하다보니 클로저를 더욱 더 많이 사용함에 있어서 클로저내에 브레이크를 걸고 콘솔창에서 po명령을 이용해서 내 객체에 접근을 하고자할때 12345(lldb) po selferror: &amp;lt;EXPR&amp;gt;:3:1: error: use of unresolved iden">
 <meta name="keywords" content="po self를 하는 방법">
 <meta property="og:type" content="article">
-<meta property="og:title" content="po_print_in_closure.md">
+<meta property="og:title" content="클로저 내에서 내 객체(self) 접근하는 방법">
 <meta property="og:url" content="https://muzcity.github.io/2017/11/10/po-print-in-closure-md/index.html">
 <meta property="og:site_name" content="아이폰 개발">
 <meta property="og:description" content="클로저 내에서 self 를 접근하는 방법.기존에 계속 있던 문제로 이번에 RxSwift를 공부하다보니 클로저를 더욱 더 많이 사용함에 있어서 클로저내에 브레이크를 걸고 콘솔창에서 po명령을 이용해서 내 객체에 접근을 하고자할때 12345(lldb) po selferror: &amp;lt;EXPR&amp;gt;:3:1: error: use of unresolved iden">
-<meta property="og:updated_time" content="2017-11-10T01:21:24.000Z">
+<meta property="og:updated_time" content="2017-11-10T01:30:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="po_print_in_closure.md">
+<meta name="twitter:title" content="클로저 내에서 내 객체(self) 접근하는 방법">
 <meta name="twitter:description" content="클로저 내에서 self 를 접근하는 방법.기존에 계속 있던 문제로 이번에 RxSwift를 공부하다보니 클로저를 더욱 더 많이 사용함에 있어서 클로저내에 브레이크를 걸고 콘솔창에서 po명령을 이용해서 내 객체에 접근을 하고자할때 12345(lldb) po selferror: &amp;lt;EXPR&amp;gt;:3:1: error: use of unresolved iden">
   
     <link rel="alternative" href="/atom.xml" title="아이폰 개발" type="application/atom+xml">
@@ -64,7 +64,7 @@
 		
   
     <h1 class="article-title entry-title" itemprop="name">
-      po_print_in_closure.md
+      클로저 내에서 내 객체(self) 접근하는 방법
     </h1>
   
 
@@ -90,7 +90,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123; [weak weakSelf = self] _ in </div><div class="line"></div><div class="line">	guard let weakSelf = weakSelf else &#123;</div><div class="line">		return</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	// 브레이크를 걸고 콘솔에서 po weakSelf.variableName로 접근시</div><div class="line">	// 옵셔널한 값으로 찍히는걸 볼수 있다.</div><div class="line">	// 강제 언래핑을 한다면 해당하는 값을 볼수가 있다.</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>아래는 실 사용시에 나오는 값들이다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">rx / subscribe 내에서 브레이크를 걸고 콘솔로 찍은 값들이다.</div><div class="line"></div><div class="line">(lldb) po weakSelf.view</div><div class="line">▿ Optional&lt;UIView&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.view!</div><div class="line">&lt;UIView: 0x7fd008d61740; frame = (0 0; 375 812); autoresize = W+H; layer = &lt;CALayer: 0x6040006219e0&gt;&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.idTextField</div><div class="line">▿ Optional&lt;UITextField&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.idTextField!</div><div class="line">&lt;UITextField: 0x7fd00a0b0000; frame = (10 74; 275 30); text = &apos;&apos;; opaque = NO; autoresize = RM+BM; gestureRecognizers = &lt;NSArray: 0x60400045a040&gt;; layer = &lt;CALayer: 0x600000634c80&gt;&gt;</div></pre></td></tr></table></figure>
-<p>이상의 나름 엄청난 꿀팁이라 생각해서… 잘쓰지않는 블로그를 적었다.</p>
+<p>이상의 나름 꿀팁이라 생각해서… 잘쓰지않는 블로그를 적었다.</p>
 
     
 	</div>
