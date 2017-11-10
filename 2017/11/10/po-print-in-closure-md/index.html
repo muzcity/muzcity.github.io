@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>po_print_in_closure.md | 아이폰 개발</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="클로저 내에서 self 를 접근하는 방법.기존에 계속 있던 문제로 이번에 RxSwift를 공부하다보니 클로저를 더욱 더 많이 사용함에 있어서 클로저내에 브레이크를 걸고 콘솔창에서 po명령을 이용해서 내 객체에 접근을 하고자할때 12345(lldb) po selferror: &amp;lt;EXPR&amp;gt;:3:1: error: use of unresolved iden">
+<meta name="keywords" content="po self를 하는 방법">
+<meta property="og:type" content="article">
+<meta property="og:title" content="po_print_in_closure.md">
+<meta property="og:url" content="https://muzcity.github.io/2017/11/10/po-print-in-closure-md/index.html">
+<meta property="og:site_name" content="아이폰 개발">
+<meta property="og:description" content="클로저 내에서 self 를 접근하는 방법.기존에 계속 있던 문제로 이번에 RxSwift를 공부하다보니 클로저를 더욱 더 많이 사용함에 있어서 클로저내에 브레이크를 걸고 콘솔창에서 po명령을 이용해서 내 객체에 접근을 하고자할때 12345(lldb) po selferror: &amp;lt;EXPR&amp;gt;:3:1: error: use of unresolved iden">
+<meta property="og:updated_time" content="2017-11-10T01:21:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="po_print_in_closure.md">
+<meta name="twitter:description" content="클로저 내에서 self 를 접근하는 방법.기존에 계속 있던 문제로 이번에 RxSwift를 공부하다보니 클로저를 더욱 더 많이 사용함에 있어서 클로저내에 브레이크를 걸고 콘솔창에서 po명령을 이용해서 내 객체에 접근을 하고자할때 12345(lldb) po selferror: &amp;lt;EXPR&amp;gt;:3:1: error: use of unresolved iden">
+  
+    <link rel="alternative" href="/atom.xml" title="아이폰 개발" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">아이폰 개발</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://muzcity.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-po-print-in-closure-md" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2017/11/10/po-print-in-closure-md/" class="article-date">
+  <time datetime="2017-11-10T01:06:27.000Z" itemprop="datePublished">2017-11-10</time>
+</a>
+		</span>
+		<span class="meta-elements author">muzcity</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      po_print_in_closure.md
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h2 id="클로저-내에서-self-를-접근하는-방법"><a href="#클로저-내에서-self-를-접근하는-방법" class="headerlink" title="클로저 내에서 self 를 접근하는 방법."></a>클로저 내에서 self 를 접근하는 방법.</h2><p>기존에 계속 있던 문제로 이번에 RxSwift를 공부하다보니 클로저를 더욱 더 많이 사용함에 있어서 클로저내에 브레이크를 걸고 콘솔창에서 po명령을 이용해서 내 객체에 접근을 하고자할때</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">(lldb) po self</div><div class="line">error: &lt;EXPR&gt;:3:1: error: use of unresolved identifier &apos;self&apos;</div><div class="line">self</div><div class="line">^~~~</div></pre></td></tr></table></figure>
+<p>위와 같은 에러 문구를 토해내고 제대로 된 값을 볼수가 없다.</p>
+<p>현재 내가 사용을 하고 있는 방법이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123; [weak self] _ in </div><div class="line"></div><div class="line">	guard let `self` = self else &#123;</div><div class="line">		return</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//내부에 브레이크 포인트를 걸고 콘솔창에서 </div><div class="line">	//po self.variableName으로 접근을 해서 특정값을 본다.</div><div class="line">	//콘솔에 값이 정상적으로 찍히지 않고 위의 에러만을 토해낸다</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>구글링을 하면 </p>
+<ul>
+<li>빌드 옵션을 변경</li>
+<li>… 까먹음..</li>
+<li>버그다 아직도 안된다.</li>
+</ul>
+<p>등등의 몇가지 방법이 나오고 제대로 이거다 라는 방법을 찾지 못하였다.</p>
+<p><br></p>
+<hr>
+<p><strong>어딘지 정확히 기억을 하지 못하지만 self가 쉐도우 캡쳐된다라는 글을 보고 몇몇 테스트를 시도하였고</strong></p>
+<p><strong>몇몇의 시도끝에 성공한 값이 노출되는 방법이다.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123; [weak weakSelf = self] _ in </div><div class="line"></div><div class="line">	guard let weakSelf = weakSelf else &#123;</div><div class="line">		return</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	// 브레이크를 걸고 콘솔에서 po weakSelf.variableName로 접근시</div><div class="line">	// 옵셔널한 값으로 찍히는걸 볼수 있다.</div><div class="line">	// 강제 언래핑을 한다면 해당하는 값을 볼수가 있다.</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>아래는 실 사용시에 나오는 값들이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">rx / subscribe 내에서 브레이크를 걸고 콘솔로 찍은 값들이다.</div><div class="line"></div><div class="line">(lldb) po weakSelf.view</div><div class="line">▿ Optional&lt;UIView&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.view!</div><div class="line">&lt;UIView: 0x7fd008d61740; frame = (0 0; 375 812); autoresize = W+H; layer = &lt;CALayer: 0x6040006219e0&gt;&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.idTextField</div><div class="line">▿ Optional&lt;UITextField&gt;</div><div class="line"></div><div class="line">(lldb) po weakSelf.idTextField!</div><div class="line">&lt;UITextField: 0x7fd00a0b0000; frame = (10 74; 275 30); text = &apos;&apos;; opaque = NO; autoresize = RM+BM; gestureRecognizers = &lt;NSArray: 0x60400045a040&gt;; layer = &lt;CALayer: 0x600000634c80&gt;&gt;</div></pre></td></tr></table></figure>
+<p>이상의 나름 엄청난 꿀팁이라 생각해서… 잘쓰지않는 블로그를 적었다.</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/po-self를-하는-방법/">po self를 하는 방법</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/03/autolayout/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          autolayout
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:muzcity.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">아이폰 개발</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2017 muzcity<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
