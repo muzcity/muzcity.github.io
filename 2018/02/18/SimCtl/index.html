@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>simctl 에 대하여 | 아이폰 개발</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="지난번 스위프트 밋업때 simctl에 대해서 듣고 간단히 정리. 스크립트로 만들어둬야 싶긴했는데 지금으로써는 쓸 명령어들만 정리해 놔도 되지 않을까 싶은 생각이라 명령어들만 나열하고 끝내려함.  시뮬을 콘솔창에서 생성할수도 있음. 해당 내용을 비 개발자에게 전해주고자 할때 너무 복잡해짐. 아래의 명령어들만 알려주고 조합해서 쓰게 하는게 제일 낫지 않을까 하">
+<meta name="keywords" content="xcode, commandline_tool, simctl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="simctl 에 대하여">
+<meta property="og:url" content="https://muzcity.github.io/2018/02/18/SimCtl/index.html">
+<meta property="og:site_name" content="아이폰 개발">
+<meta property="og:description" content="지난번 스위프트 밋업때 simctl에 대해서 듣고 간단히 정리. 스크립트로 만들어둬야 싶긴했는데 지금으로써는 쓸 명령어들만 정리해 놔도 되지 않을까 싶은 생각이라 명령어들만 나열하고 끝내려함.  시뮬을 콘솔창에서 생성할수도 있음. 해당 내용을 비 개발자에게 전해주고자 할때 너무 복잡해짐. 아래의 명령어들만 알려주고 조합해서 쓰게 하는게 제일 낫지 않을까 하">
+<meta property="og:updated_time" content="2018-02-18T08:22:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="simctl 에 대하여">
+<meta name="twitter:description" content="지난번 스위프트 밋업때 simctl에 대해서 듣고 간단히 정리. 스크립트로 만들어둬야 싶긴했는데 지금으로써는 쓸 명령어들만 정리해 놔도 되지 않을까 싶은 생각이라 명령어들만 나열하고 끝내려함.  시뮬을 콘솔창에서 생성할수도 있음. 해당 내용을 비 개발자에게 전해주고자 할때 너무 복잡해짐. 아래의 명령어들만 알려주고 조합해서 쓰게 하는게 제일 낫지 않을까 하">
+  
+    <link rel="alternative" href="/atom.xml" title="아이폰 개발" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">아이폰 개발</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://muzcity.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-SimCtl" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/02/18/SimCtl/" class="article-date">
+  <time datetime="2018-02-18T08:13:24.000Z" itemprop="datePublished">2018-02-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">muzcity</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      simctl 에 대하여
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>지난번 스위프트 밋업때 simctl에 대해서 듣고 간단히 정리.</p>
+<p>스크립트로 만들어둬야 싶긴했는데 지금으로써는 쓸 명령어들만 정리해 놔도 되지 않을까 싶은 생각이라</p>
+<p>명령어들만 나열하고 끝내려함.</p>
+<ul>
+<li>시뮬을 콘솔창에서 생성할수도 있음.</li>
+<li>해당 내용을 비 개발자에게 전해주고자 할때 너무 복잡해짐.</li>
+<li>아래의 명령어들만 알려주고 조합해서 쓰게 하는게 제일 낫지 않을까 하는 생각.</li>
+</ul>
+<p>====</p>
+<ol>
+<li>맥스토어에서 엑스코드를 설치한다.</li>
+<li>한번 실행한다.</li>
+<li>테스트하려고 하는 os 버전의 시뮬레이터를 설치한다.<ul>
+<li>preferences - components 이동 설치.</li>
+</ul>
+</li>
+<li>테스트를 하고자하는 os종류별로 시뮬레이터를 생성한다.<ul>
+<li>xcode 메뉴에서 window - devieces and simulators</li>
+<li>시뮬레이터 탭으로 이동</li>
+<li>[전용으로 쓸 이름] 으로 시뮬레이터 생성한다.</li>
+</ul>
+</li>
+<li>이름은 [전용으로 쓸 이름]로 통일<ul>
+<li>명령어 내에 해당 이름으로 시뮬을 찾도록 되어 있음.</li>
+</ul>
+</li>
+<li>터미널을 실행한다.</li>
+<li>각각의 app파일의 절대경로를 체크한다.</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// 시뮬을 실행시킨다.</div><div class="line">open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app</div><div class="line"></div><div class="line">// 부팅을 시키는 명령어.</div><div class="line">xcrun simctl list | grep &apos;[전용으로 쓸 이름]&apos; | awk -F &quot;[()]&quot; &apos; &#123; print $2 &#125;&apos; | xargs -I udid xcrun simctl boot udid</div><div class="line"></div><div class="line">// 앱을 설치하는 명령어.</div><div class="line">xcrun simctl list | grep &apos;[전용으로 쓸 이름]&apos; | awk -F &quot;[()]&quot; &apos; &#123; print $2 &#125;&apos; | xargs -I udid xcrun simctl install udid [해당 앱의 시뮬로 파일의 경로]</div><div class="line"></div><div class="line">// 앱을 실행하는 명령어</div><div class="line">xcrun simctl list | grep &apos;[전용으로 쓸 이름]&apos; | awk -F &quot;[()]&quot; &apos; &#123; print $2 &#125;&apos; | xargs -I udid xcrun simctl launch udid [해당 앱의 번들 아이디]</div><div class="line"></div><div class="line">// 앱을 종료하는 명령어</div><div class="line">xcrun simctl list | grep &apos;[전용으로 쓸 이름]&apos; | awk -F &quot;[()]&quot; &apos; &#123; print $2 &#125;&apos; | xargs -I udid xcrun simctl terminate udid [해당 앱의 번들 아이디]</div><div class="line"></div><div class="line">// 앱을 삭제하는 명령어</div><div class="line">xcrun simctl list | grep &apos;[전용으로 쓸 이름]&apos; | awk -F &quot;[()]&quot; &apos; &#123; print $2 &#125;&apos; | xargs -I udid xcrun simctl uninstall udid [해당 앱의 번들 아이디]</div><div class="line"></div><div class="line">// 시뮬레이터 종료 명령어</div><div class="line">xcrun simctl list | grep &apos;[전용으로 쓸 이름]&apos; | awk -F &quot;[()]&quot; &apos; &#123; print $2 &#125;&apos; | xargs -I udid xcrun simctl shutdown udid</div></pre></td></tr></table></figure>
+<p>시뮬이 종료된 시점에서는</p>
+<ol>
+<li>시뮬실행</li>
+<li>부팅</li>
+<li>설치</li>
+<li>실행</li>
+</ol>
+<p>시뮬이 실행되어 있는 시점에는</p>
+<ol>
+<li>앱종료 (실행되어 있다면.?)</li>
+<li>설치 (새로운 앱일떄)</li>
+<li>실행</li>
+</ol>
+<p>등등 명령어를 조합해서 사용하면 될듯 함.</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xcode-commandline-tool-simctl/">xcode, commandline_tool, simctl</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/10/po-print-in-closure-md/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          클로저 내에서 내 객체(self) 접근하는 방법
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:muzcity.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">아이폰 개발</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 muzcity<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
